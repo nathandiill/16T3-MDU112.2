@@ -36,24 +36,24 @@ public class PlayerScript : MonoBehaviour
 
         // Selects UNIQUE Team One from the List of Characters
         // Important! From this point on teamMember... is the Characters name
-        int chooseList1 = UnityEngine.Random.Range(0, 5);
+        int chooseList1 = UnityEngine.Random.Range(0, teamOneList.Count);
         Character teamOneMemberOne = teamOneList[chooseList1];
         teamOneList.RemoveAt(chooseList1);
-        int chooseList2 = UnityEngine.Random.Range(0, 5);
+        int chooseList2 = UnityEngine.Random.Range(0, teamOneList.Count);
         Character teamOneMemberTwo = teamOneList[chooseList2];
         teamOneList.RemoveAt(chooseList2);
-        int chooseList3 = UnityEngine.Random.Range(0, 5);
+        int chooseList3 = UnityEngine.Random.Range(0, teamOneList.Count);
         Character teamOneMemberThree = teamOneList[chooseList3];
         teamOneList.RemoveAt(chooseList3);
 
         // Selects UNIQUE Team Two from the List of Characters
-        int chooseList4 = UnityEngine.Random.Range(0, 5);
+        int chooseList4 = UnityEngine.Random.Range(0, teamTwoList.Count);
         Character teamTwoMemberOne = teamTwoList[chooseList4];
         teamTwoList.RemoveAt(chooseList4);
-        int chooseList5 = UnityEngine.Random.Range(0, 5);
+        int chooseList5 = UnityEngine.Random.Range(0, teamTwoList.Count);
         Character teamTwoMemberTwo = teamTwoList[chooseList5];
         teamTwoList.RemoveAt(chooseList5);
-        int chooseList6 = UnityEngine.Random.Range(0, 5);
+        int chooseList6 = UnityEngine.Random.Range(0, teamTwoList.Count);
         Character teamTwoMemberThree = teamTwoList[chooseList6];
         teamTwoList.RemoveAt(chooseList6);
         
