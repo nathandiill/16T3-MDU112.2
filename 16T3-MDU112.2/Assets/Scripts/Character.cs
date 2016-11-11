@@ -6,8 +6,8 @@ public class Character {
 
     // Assign random numbers to the attributes
     public int agility = UnityEngine.Random.Range(1, 11);
-    public int stamina = UnityEngine.Random.Range(1, 11);
-    public int strength = UnityEngine.Random.Range(1, 11);
+    public int stamina = UnityEngine.Random.Range(6, 11);
+    public int strength = UnityEngine.Random.Range(1, 6);
     public int acuity = UnityEngine.Random.Range(1, 11);
 
     // Create the stats
@@ -25,7 +25,7 @@ public class Character {
 
         // Formula for the stats
         speed = Mathf.Pow(agility, 2);
-        health = stamina * 2.5f;
+        health = stamina * 3.5f;
         damage = strength * 1.5f;
         criticalHitChance = acuity * 2.0f;
     }
