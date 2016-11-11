@@ -81,8 +81,16 @@ public class PlayerScript : MonoBehaviour
             Character teamOneAttackee = teamTwoBattleList[chooseAttackeeTeamOne];
 
             // Do the damage for team one
-            teamOneAttackee.health = teamOneAttackee.health - teamOneAttacker.damage;
-            
+            if(UnityEngine.Random.Range(1, 51) <= teamOneAttacker.criticalHitChance)
+            {
+                teamOneAttackee.health = teamOneAttackee.health - (teamOneAttacker.damage * 2);
+                Debug.Log("Team One hit Team Two for a critical hit in Round " + numRounds);
+            }
+            else
+            {
+                teamOneAttackee.health = teamOneAttackee.health - teamOneAttacker.damage;
+            }
+                        
             // Choose an attacker an a victim for team two
             int chooseAttackerTeamTwo = UnityEngine.Random.Range(0, teamTwoBattleList.Count);
             Character teamTwoAttacker = teamTwoBattleList[chooseAttackerTeamTwo];
@@ -90,10 +98,18 @@ public class PlayerScript : MonoBehaviour
             Character teamTwoAttackee = teamOneBattleList[chooseAttackeeTeamTwo];
 
             // Do the damage for team two
-            teamTwoAttackee.health = teamTwoAttackee.health - teamTwoAttacker.damage;
+            if (UnityEngine.Random.Range(1, 51) <= teamTwoAttacker.criticalHitChance)
+            {
+                teamTwoAttackee.health = teamTwoAttackee.health - (teamTwoAttacker.damage * 2);
+                Debug.Log("Team Two hit Team One for a critical hit in Round " + numRounds);
+            }
+            else
+            {
+                teamTwoAttackee.health = teamTwoAttackee.health - teamTwoAttacker.damage;
+            }
 
             // Remove a character if death occurs
-            if(teamOneMemberOne.health <= 0)
+            if (teamOneMemberOne.health <= 0)
             {
                 teamOneBattleList.Remove(teamOneMemberOne);
             }
