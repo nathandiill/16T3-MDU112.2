@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Character {
 
     // Assign random numbers to the attributes
-    public int agility = UnityEngine.Random.Range(1, 11);
+    public int agility = UnityEngine.Random.Range(1, 6);
     public int stamina = UnityEngine.Random.Range(6, 11);
     public int strength = UnityEngine.Random.Range(1, 6);
     public int acuity = UnityEngine.Random.Range(1, 11);

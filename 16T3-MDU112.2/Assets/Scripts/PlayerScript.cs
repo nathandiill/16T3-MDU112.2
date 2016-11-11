@@ -7,16 +7,16 @@ public class PlayerScript : MonoBehaviour
     public void Start()
     {
         // Create roster of 10 characters with stats
-        Character playerOne = new Character(UnityEngine.Random.Range(1, 11), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
-        Character playerTwo = new Character(UnityEngine.Random.Range(1, 11), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
-        Character playerThree = new Character(UnityEngine.Random.Range(1, 11), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
-        Character playerFour = new Character(UnityEngine.Random.Range(1, 11), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
-        Character playerFive = new Character(UnityEngine.Random.Range(1, 11), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
-        Character playerSix = new Character(UnityEngine.Random.Range(1, 11), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
-        Character playerSeven = new Character(UnityEngine.Random.Range(1, 11), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
-        Character playerEight = new Character(UnityEngine.Random.Range(1, 11), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
-        Character playerNine = new Character(UnityEngine.Random.Range(1, 11), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
-        Character playerTen = new Character(UnityEngine.Random.Range(1, 11), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
+        Character playerOne = new Character(UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
+        Character playerTwo = new Character(UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
+        Character playerThree = new Character(UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
+        Character playerFour = new Character(UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
+        Character playerFive = new Character(UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
+        Character playerSix = new Character(UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
+        Character playerSeven = new Character(UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
+        Character playerEight = new Character(UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
+        Character playerNine = new Character(UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
+        Character playerTen = new Character(UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(6, 11), UnityEngine.Random.Range(1, 6), UnityEngine.Random.Range(1, 11));
 
         // List for Team One
         List<Character> teamOneList = new List<Character>();
@@ -81,14 +81,24 @@ public class PlayerScript : MonoBehaviour
             Character teamOneAttackee = teamTwoBattleList[chooseAttackeeTeamOne];
 
             // Do the damage for team one
-            if(UnityEngine.Random.Range(1, 51) <= teamOneAttacker.criticalHitChance)
+            // Dodge chance if statement determines if damage is done
+            if (UnityEngine.Random.Range(1, 51) <= teamOneAttackee.speed)
             {
-                teamOneAttackee.health = teamOneAttackee.health - (teamOneAttacker.damage * 2);
-                Debug.Log("Team One hit Team Two for a critical hit in Round " + numRounds);
+                teamOneAttackee.health = teamOneAttackee.health - (teamOneAttacker.damage * 0);
+                Debug.Log("Team Two dodged Team One's attack in Round " + numRounds);
             }
             else
             {
-                teamOneAttackee.health = teamOneAttackee.health - teamOneAttacker.damage;
+                // Critical hit chance for team one
+                if (UnityEngine.Random.Range(1, 51) <= teamOneAttacker.criticalHitChance)
+                {
+                    teamOneAttackee.health = teamOneAttackee.health - (teamOneAttacker.damage * 2);
+                    Debug.Log("Team One hit Team Two for a critical hit in Round " + numRounds);
+                }
+                else
+                {
+                    teamOneAttackee.health = teamOneAttackee.health - teamOneAttacker.damage;
+                }
             }
                         
             // Choose an attacker an a victim for team two
@@ -98,14 +108,24 @@ public class PlayerScript : MonoBehaviour
             Character teamTwoAttackee = teamOneBattleList[chooseAttackeeTeamTwo];
 
             // Do the damage for team two
-            if (UnityEngine.Random.Range(1, 51) <= teamTwoAttacker.criticalHitChance)
+            // Dodge chance if statement determines if damage is done
+            if (UnityEngine.Random.Range(1, 51) < teamTwoAttackee.speed)
             {
-                teamTwoAttackee.health = teamTwoAttackee.health - (teamTwoAttacker.damage * 2);
-                Debug.Log("Team Two hit Team One for a critical hit in Round " + numRounds);
+                teamTwoAttackee.health = teamTwoAttackee.health - (teamTwoAttackee.damage * 0);
+                Debug.Log("Team One dodged Team Two's attack in Round " + numRounds);
             }
             else
             {
-                teamTwoAttackee.health = teamTwoAttackee.health - teamTwoAttacker.damage;
+                // Critical hit change for team two
+                if (UnityEngine.Random.Range(1, 51) <= teamTwoAttacker.criticalHitChance)
+                {
+                    teamTwoAttackee.health = teamTwoAttackee.health - (teamTwoAttacker.damage * 2);
+                    Debug.Log("Team Two hit Team One for a critical hit in Round " + numRounds);
+                }
+                else
+                {
+                    teamTwoAttackee.health = teamTwoAttackee.health - teamTwoAttacker.damage;
+                }
             }
 
             // Remove a character if death occurs
