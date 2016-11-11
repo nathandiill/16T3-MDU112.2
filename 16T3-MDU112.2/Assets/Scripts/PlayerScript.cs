@@ -56,7 +56,7 @@ public class PlayerScript : MonoBehaviour
         int chooseList6 = UnityEngine.Random.Range(0, teamTwoList.Count);
         Character teamTwoMemberThree = teamTwoList[chooseList6];
         teamTwoList.RemoveAt(chooseList6);
-        
+                          
         // Display initial values for each member pre-battle (health)
         teamOneMemberOne.DisplayInfo();
         teamOneMemberTwo.DisplayInfo();
@@ -64,7 +64,81 @@ public class PlayerScript : MonoBehaviour
         teamTwoMemberOne.DisplayInfo();
         teamTwoMemberTwo.DisplayInfo();
         teamTwoMemberThree.DisplayInfo();
+                
+        // Create a team health value to easily track the conditional in the while loop
+        float teamOneHealth = 1;
+        teamOneHealth = teamOneMemberOne.health + teamOneMemberTwo.health + teamOneMemberThree.health;
+        float teamTwoHealth = 2;
+        teamTwoHealth = teamTwoMemberOne.health + teamTwoMemberTwo.health + teamTwoMemberThree.health;
 
+        // Create a list for the battle characters in team one
+        List<Character> teamOneBattleList = new List<Character>();
+        teamOneBattleList.Add(teamOneMemberOne);
+        teamOneBattleList.Add(teamOneMemberTwo);
+        teamOneBattleList.Add(teamOneMemberThree);
+
+        // Create a list for the battle characters in team two
+        List<Character> teamTwoBattleList = new List<Character>();
+        teamTwoBattleList.Add(teamTwoMemberOne);
+        teamTwoBattleList.Add(teamTwoMemberTwo);
+        teamTwoBattleList.Add(teamTwoMemberThree);
+
+        // Count the rounds in the battle
+        int numRounds = 1;
+        
+        while (teamOneHealth >0 & teamTwoHealth >0)
+        {
+            // Choose an attacker and a victim for team one
+            int chooseAttackerTeamOne = UnityEngine.Random.Range(0, teamOneBattleList.Count);
+            Character teamOneAttacker = teamOneBattleList[chooseAttackerTeamOne];
+            int chooseAttackeeTeamOne = UnityEngine.Random.Range(0, teamTwoBattleList.Count);
+            Character teamOneAttackee = teamTwoBattleList[chooseAttackeeTeamOne];
+
+            // Do the damage for team one
+            teamOneAttackee.health = teamOneAttackee.health - teamOneAttacker.damage;
+
+            // Choose an attacker an a victim for team two
+            int chooseAttackerTeamTwo = UnityEngine.Random.Range(0, teamTwoBattleList.Count);
+            Character teamTwoAttacker = teamTwoBattleList[chooseAttackerTeamTwo];
+            int chooseAttackeeTeamTwo = UnityEngine.Random.Range(0, teamOneBattleList.Count);
+            Character teamTwoAttackee = teamOneBattleList[chooseAttackeeTeamTwo];
+
+            // Do the damage for team two
+            teamTwoAttackee.health = teamTwoAttackee.health - teamTwoAttacker.damage;
+
+            // Remove a character if death occurs
+            if(teamOneMemberOne.health <= 0)
+            {
+                teamOneBattleList.RemoveAt(0);
+            }
+
+            if (teamOneMemberTwo.health <= 0)
+            {
+                teamOneBattleList.RemoveAt(1);
+            }
+
+            if (teamOneMemberThree.health <= 0)
+            {
+                teamOneBattleList.RemoveAt(2);
+            }
+
+            if (teamTwoMemberOne.health <= 0)
+            {
+                teamTwoBattleList.RemoveAt(0);
+            }
+
+            if (teamTwoMemberTwo.health <= 0)
+            {
+                teamTwoBattleList.RemoveAt(1);
+            }
+
+            if (teamTwoMemberThree.health <= 0)
+            {
+                teamTwoBattleList.RemoveAt(2);
+            }
+
+            ++numRounds;
+        }
         
     }
 }
