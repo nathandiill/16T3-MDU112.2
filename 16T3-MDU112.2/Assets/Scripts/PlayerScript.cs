@@ -56,21 +56,7 @@ public class PlayerScript : MonoBehaviour
         int chooseList6 = UnityEngine.Random.Range(0, teamTwoList.Count);
         Character teamTwoMemberThree = teamTwoList[chooseList6];
         teamTwoList.RemoveAt(chooseList6);
-                          
-        // Display initial values for each member pre-battle (health)
-        teamOneMemberOne.DisplayInfo();
-        teamOneMemberTwo.DisplayInfo();
-        teamOneMemberThree.DisplayInfo();
-        teamTwoMemberOne.DisplayInfo();
-        teamTwoMemberTwo.DisplayInfo();
-        teamTwoMemberThree.DisplayInfo();
-                
-        // Create a team health value to easily track the conditional in the while loop
-        float teamOneHealth = 1;
-        teamOneHealth = teamOneMemberOne.health + teamOneMemberTwo.health + teamOneMemberThree.health;
-        float teamTwoHealth = 2;
-        teamTwoHealth = teamTwoMemberOne.health + teamTwoMemberTwo.health + teamTwoMemberThree.health;
-
+                           
         // Create a list for the battle characters in team one
         List<Character> teamOneBattleList = new List<Character>();
         teamOneBattleList.Add(teamOneMemberOne);
@@ -84,9 +70,9 @@ public class PlayerScript : MonoBehaviour
         teamTwoBattleList.Add(teamTwoMemberThree);
 
         // Count the rounds in the battle
-        int numRounds = 1;
+        int numRounds = 0;
         
-        while (teamOneHealth >0 & teamTwoHealth >0)
+        while (teamOneBattleList.Count > 0 & teamTwoBattleList.Count > 0)
         {
             // Choose an attacker and a victim for team one
             int chooseAttackerTeamOne = UnityEngine.Random.Range(0, teamOneBattleList.Count);
@@ -96,7 +82,7 @@ public class PlayerScript : MonoBehaviour
 
             // Do the damage for team one
             teamOneAttackee.health = teamOneAttackee.health - teamOneAttacker.damage;
-
+            
             // Choose an attacker an a victim for team two
             int chooseAttackerTeamTwo = UnityEngine.Random.Range(0, teamTwoBattleList.Count);
             Character teamTwoAttacker = teamTwoBattleList[chooseAttackerTeamTwo];
@@ -109,36 +95,82 @@ public class PlayerScript : MonoBehaviour
             // Remove a character if death occurs
             if(teamOneMemberOne.health <= 0)
             {
-                teamOneBattleList.RemoveAt(0);
+                teamOneBattleList.Remove(teamOneMemberOne);
             }
 
             if (teamOneMemberTwo.health <= 0)
             {
-                teamOneBattleList.RemoveAt(1);
+                teamOneBattleList.Remove(teamOneMemberTwo);
             }
 
             if (teamOneMemberThree.health <= 0)
             {
-                teamOneBattleList.RemoveAt(2);
+                teamOneBattleList.Remove(teamOneMemberThree);
             }
 
             if (teamTwoMemberOne.health <= 0)
             {
-                teamTwoBattleList.RemoveAt(0);
+                teamTwoBattleList.Remove(teamTwoMemberOne);
             }
 
             if (teamTwoMemberTwo.health <= 0)
             {
-                teamTwoBattleList.RemoveAt(1);
+                teamTwoBattleList.Remove(teamTwoMemberTwo);
             }
 
             if (teamTwoMemberThree.health <= 0)
             {
-                teamTwoBattleList.RemoveAt(2);
+                teamTwoBattleList.Remove(teamTwoMemberThree);
             }
 
+            // Track the number of rounds
             ++numRounds;
         }
         
+        // Check the victory/draw conditions for each team
+        if(teamOneBattleList.Count > 0)
+        {
+            Debug.Log("Team One is the winner!");
+        }
+
+        if (teamTwoBattleList.Count > 0)
+        {
+            Debug.Log("Team Two is the winner!");
+        }
+
+        if (teamOneBattleList.Count == 0 & teamTwoBattleList.Count == 0)
+        {
+            Debug.Log("It was a draw");
+        }
+
+        // Display feedback about the battle
+        Debug.Log(numRounds + " Rounds of battle took place");
+        Debug.Log(teamOneBattleList.Count + " members survived from Team One");
+        Debug.Log(teamTwoBattleList.Count + " members survived from Team Two");
+        if(teamOneMemberOne.health <= 0)
+        {
+            Debug.Log("Team One Member One carked it");
+        }
+        if (teamOneMemberTwo.health <= 0)
+        {
+            Debug.Log("Team One Member Two carked it");
+        }
+        if (teamOneMemberThree.health <= 0)
+        {
+            Debug.Log("Team One Member Three carked it");
+        }
+        if (teamTwoMemberOne.health <= 0)
+        {
+            Debug.Log("Team Two Member One carked it");
+        }
+        if (teamTwoMemberTwo.health <= 0)
+        {
+            Debug.Log("Team Two Member Two carked it");
+        }
+        if (teamTwoMemberThree.health <= 0)
+        {
+            Debug.Log("Team Two Member Three carked it");
+        }
+
     }
 }
