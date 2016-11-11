@@ -70,7 +70,7 @@ public class PlayerScript : MonoBehaviour
         teamTwoBattleList.Add(teamTwoMemberThree);
 
         // Count the rounds in the battle
-        int numRounds = 0;
+        int numRounds = 1;
         
         while (teamOneBattleList.Count > 0 & teamTwoBattleList.Count > 0)
         {
@@ -94,10 +94,12 @@ public class PlayerScript : MonoBehaviour
                 {
                     teamOneAttackee.health = teamOneAttackee.health - (teamOneAttacker.damage * 2);
                     Debug.Log("Team One hit Team Two for a critical hit in Round " + numRounds);
+                    Debug.Log("Team One hit Team Two for " + (teamOneAttacker.damage * 2) + " points in Round " + numRounds);
                 }
                 else
                 {
                     teamOneAttackee.health = teamOneAttackee.health - teamOneAttacker.damage;
+                    Debug.Log("Team One hit Team Two for " + teamOneAttacker.damage + " points in Round " + numRounds);
                 }
             }
                         
@@ -113,6 +115,7 @@ public class PlayerScript : MonoBehaviour
             {
                 teamTwoAttackee.health = teamTwoAttackee.health - (teamTwoAttackee.damage * 0);
                 Debug.Log("Team One dodged Team Two's attack in Round " + numRounds);
+                
             }
             else
             {
@@ -121,10 +124,12 @@ public class PlayerScript : MonoBehaviour
                 {
                     teamTwoAttackee.health = teamTwoAttackee.health - (teamTwoAttacker.damage * 2);
                     Debug.Log("Team Two hit Team One for a critical hit in Round " + numRounds);
+                    Debug.Log("Team Two hit Team One for " + (teamOneAttacker.damage * 2) + " points in Round " + numRounds);
                 }
                 else
                 {
                     teamTwoAttackee.health = teamTwoAttackee.health - teamTwoAttacker.damage;
+                    Debug.Log("Team Two hit Team One for " + teamOneAttacker.damage + " points in Round " + numRounds);
                 }
             }
 
@@ -180,7 +185,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // Display feedback about the battle
-        Debug.Log(numRounds + " Rounds of battle took place");
+        Debug.Log((numRounds - 1) + " Rounds of battle took place");
         Debug.Log(teamOneBattleList.Count + " members survived from Team One");
         Debug.Log(teamTwoBattleList.Count + " members survived from Team Two");
         if(teamOneMemberOne.health <= 0)
